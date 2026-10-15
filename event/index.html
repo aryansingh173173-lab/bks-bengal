@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>অনুষ্ঠানের তথ্য · কারিগর রত্ন সম্মাননা</title>
   <meta name="description" content="তারিখ, সময়, স্থান, কী আনবেন, পরিবারের পাস, হেল্পলাইন আর সম্মিলনীর গান।">
-  <meta name="theme-color" content="#9E1B1F">
+  <meta name="theme-color" content="#FF4D4D">
   <meta property="og:title" content="কারিগর রত্ন সম্মাননা · অনুষ্ঠানের তথ্য">
   <meta property="og:image" content="https://bks-bengal.vercel.app/assets/img/og-invite.jpg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Tiro+Bangla&family=Tiro+Devanagari+Hindi&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wdth,wght@75..100,400..800&family=Anek+Devanagari:wdth,wght@75..100,400..800&display=swap">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -29,13 +29,13 @@
     <section class="page-hero" data-hero>
       <div class="wrap">
         <span class="kicker" data-reveal data-i18n="ev.kicker"></span>
-        <h1 class="h2" style="font-size:clamp(2.4rem,9vw,4.4rem);color:var(--sindoor)" data-split data-slot="event.name"></h1>
+        <h1 class="h2" data-split data-slot="event.name"></h1>
         <p class="series" data-reveal data-slot="event.series"></p>
         <div class="banner" data-reveal="scale"><img src="/assets/img/banner-ratna.webp" alt="সাদর আমন্ত্রণ, কারিগর রত্ন — নিমন্ত্রণের ব্যানার" width="900" height="375"></div>
       </div>
     </section>
 
-    <section class="sec" style="padding-top:24px">
+    <section class="sec">
       <div class="wrap event-grid">
         <div>
           <div class="info-list" data-stagger>
@@ -69,7 +69,7 @@
       </div>
     </section>
 
-    <section class="sec dedi" id="anthem">
+    <section class="sec dedi blk-ink" id="anthem">
       <div class="wrap why-grid">
         <div>
           <span class="kicker" data-reveal data-i18n="ev.watch"></span>
@@ -123,7 +123,7 @@
         <h2 class="h2" data-split data-i18n="ev.notReg"></h2>
         <a class="btn btn-primary btn-xl pulse" href="/register/?mode=voice" data-reveal><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg><span data-i18n="cta.voice"></span></a>
         <a class="btn btn-ghost btn-sm" href="/register/?mode=crew" data-reveal><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#users"/></svg><span data-i18n="cta.crew"></span></a>
-        <img src="/assets/img/organisers.webp" alt="KarmYog for the 21st Century এবং Bharatiya Krishak Samaj" loading="lazy" width="800" height="266" style="width:min(520px,100%);mix-blend-mode:multiply;margin-top:24px" data-reveal>
+        <img src="/assets/img/organisers.webp" alt="KarmYog for the 21st Century এবং Bharatiya Krishak Samaj" loading="lazy" width="800" height="266" style="width:min(520px,100%);margin-top:24px;background:#fff;border:2.5px solid var(--ink);border-radius:18px;padding:10px 18px;box-shadow:4px 4px 0 var(--ink)" data-reveal>
       </div>
     </section>
   </main>
@@ -148,7 +148,7 @@
     function paint() {
       $("[data-map]").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(ev.mapQuery);
       $("[data-tels]").innerHTML = BKS.config.helpline.map(function (h) {
-        return '<a class="tel" style="background:var(--deep)" href="tel:' + h.tel + '">' + BKS.ui.icon("phone") + "<span>" + D.localDigits(h.display, lang() === "bn" ? "bn" : "en") + "</span></a>";
+        return '<a class="tel" href="tel:' + h.tel + '">' + BKS.ui.icon("phone") + "<span>" + D.localDigits(h.display, lang() === "bn" ? "bn" : "en") + "</span></a>";
       }).join("");
       var target = new Date(ev.isoDate).getTime(), ms = Math.max(0, target - Date.now());
       $("[data-cd=d]").textContent = D.localDigits(String(Math.floor(ms / 864e5)), lang());

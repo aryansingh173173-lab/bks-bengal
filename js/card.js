@@ -1,9 +1,10 @@
 /* The invitation card (brief, section 10): 1080 × 1350 portrait, made for WhatsApp.
-   Drawn in the browser so it works offline after registration. */
+   Drawn in the browser so it works offline after registration.
+   Look: coral poster top with the artwork as stickers, name in big condensed navy. */
 (function (BKS) {
   "use strict";
   var W = 1080, H = 1350;
-  var C = { parchment: "#FBF3E4", p2: "#F1DDB0", sindoor: "#9E1B1F", deep: "#6D0F12", gold: "#C8901A", gold2: "#E2B04A", ink: "#2A1A12", ink2: "#5B4433" };
+  var C = { coral: "#FF4D4D", coralDeep: "#D93030", cyan: "#5CE1FF", cyanTint: "#E6FAFF", ink: "#0E1A2B", ink2: "#33415A", ink3: "#5D6B82", paper: "#FFFFFF" };
   var cache = {};
 
   function img(src) {
@@ -19,246 +20,31 @@
 
   function fonts(lang) {
     if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    var fam = lang === "hi" ? '"Anek Devanagari"' : '"Anek Bangla"';
     var sample = lang === "hi" ? "कारीगर" : lang === "en" ? "Kaarigar" : "কারিগর";
     return Promise.all([
-      document.fonts.load('80px "Galada"', "কারিগর"),
-      document.fonts.load('40px "Tiro Bangla"', sample),
-      document.fonts.load('40px "Tiro Devanagari Hindi"', "कारीगर"),
+      document.fonts.load("800 80px " + fam, sample),
+      document.fonts.load("condensed 800 80px " + fam, sample),
+      document.fonts.load("600 40px " + fam, sample),
       document.fonts.load('600 40px "Hind Siliguri"', sample)
     ]).catch(function () {});
   }
 
-  function fit(ctx, text, maxW, size, family, weight) {
+  function family(lang) { return lang === "hi" ? '"Anek Devanagari", "Anek Bangla", sans-serif' : '"Anek Bangla", "Hind Siliguri", sans-serif'; }
+
+  function setFont(ctx, weight, size, fam, condensed) {
+    ctx.font = weight + " " + size + "px " + fam;
+    if ("fontStretch" in ctx) ctx.fontStretch = condensed ? "condensed" : "normal";
+  }
+
+  function fit(ctx, text, maxW, size, fam, weight, condensed, min) {
     var s = size;
     do {
-      ctx.font = (weight || "") + " " + s + "px " + family;
+      setFont(ctx, weight, s, fam, condensed);
       if (ctx.measureText(text).width <= maxW) break;
       s -= 2;
-    } while (s > 24);
+    } while (s > (min || 24));
     return s;
-  }
-
-  function wrap(ctx, text, maxW) {
-    var words = String(text).split(/\s+/), lines = [], line = "";
-    words.forEach(function (w) {
-      var test = line ? line + " " + w : w;
-      if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test;
-    });
-    if (line) lines.push(line);
-    return lines;
-  }
-
-  function rosette(ctx, x, y, r) {
-    ctx.save();
-    ctx.translate(x, y);
-    for (var k = 0; k < 8; k += 1) {
-      ctx.rotate(Math.PI / 4);
-      ctx.fillStyle = k % 2 ? C.gold2 : C.sindoor;
-      ctx.beginPath();
-      ctx.ellipse(0, -r * .55, r * .22, r * .5, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.fillStyle = C.parchment;
-    ctx.beginPath(); ctx.arc(0, 0, r * .22, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = C.sindoor;
-    ctx.beginPath(); ctx.arc(0, 0, r * .1, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-  }
-
-  function flourish(ctx, cx, y, w) {
-    ctx.save();
-    ctx.strokeStyle = C.sindoor;
-    ctx.lineWidth = 3;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(cx - w / 2, y);
-    ctx.lineTo(cx - 46, y);
-    ctx.bezierCurveTo(cx - 34, y - 14, cx - 14, y - 14, cx, y);
-    ctx.bezierCurveTo(cx + 14, y - 14, cx + 34, y - 14, cx + 46, y);
-    ctx.lineTo(cx + w / 2, y);
-    ctx.stroke();
-    ctx.fillStyle = C.gold;
-    ctx.beginPath(); ctx.arc(cx, y + 2, 6, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-  }
-
-  function drawQR(ctx, text, x, y, size) {
-    if (typeof window.qrcode !== "function") return false;
-    var qr = window.qrcode(0, "M");
-    qr.addData(text);
-    qr.make();
-    var n = qr.getModuleCount(), cell = size / (n + 2);
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(x, y, size, size);
-    ctx.fillStyle = C.ink;
-    for (var r = 0; r < n; r += 1) {
-      for (var c = 0; c < n; c += 1) {
-        if (qr.isDark(r, c)) ctx.fillRect(Math.round(x + (c + 1) * cell), Math.round(y + (r + 1) * cell), Math.ceil(cell), Math.ceil(cell));
-      }
-    }
-    return true;
-  }
-
-  // Fade an image into the parchment along one side.
-  function fadedImage(ctx, image, x, y, w, h, side) {
-    if (!image) return;
-    var off = document.createElement("canvas");
-    off.width = w; off.height = h;
-    var o = off.getContext("2d");
-    var ir = image.width / image.height, br = w / h, sw, sh, sx, sy;
-    if (ir > br) { sh = image.height; sw = sh * br; sx = (image.width - sw) / 2; sy = 0; }
-    else { sw = image.width; sh = sw / br; sx = 0; sy = 0; }
-    o.drawImage(image, sx, sy, sw, sh, 0, 0, w, h);
-    o.globalCompositeOperation = "destination-in";
-    var g = side === "left" ? o.createLinearGradient(w, 0, 0, 0) : o.createLinearGradient(0, 0, w, 0);
-    g.addColorStop(0, "rgba(0,0,0,0)");
-    g.addColorStop(.38, "rgba(0,0,0,1)");
-    g.addColorStop(1, "rgba(0,0,0,1)");
-    o.fillStyle = g;
-    o.fillRect(0, 0, w, h);
-    var g2 = o.createLinearGradient(0, h, 0, 0);
-    g2.addColorStop(0, "rgba(0,0,0,0)");
-    g2.addColorStop(.3, "rgba(0,0,0,1)");
-    o.fillStyle = g2;
-    o.fillRect(0, 0, w, h);
-    ctx.drawImage(off, x, y);
-  }
-
-  /* data: { name, trades:[ids], puja, area, district, family, regNo, photo (Image|null) } */
-  async function draw(canvas, data, lang) {
-    lang = lang || BKS.i18n.lang;
-    var li = ["bn", "en", "hi"].indexOf(lang);
-    var t = BKS.i18n.t, pick = BKS.i18n.pick, D = BKS.data, ev = BKS.config.event;
-    var DISP = lang === "en" ? '"Tiro Bangla", Georgia, serif' : lang === "hi" ? '"Tiro Devanagari Hindi", serif' : '"Galada", "Tiro Bangla", serif';
-    var SERIF = lang === "hi" ? '"Tiro Devanagari Hindi", "Tiro Bangla", serif' : '"Tiro Bangla", Georgia, serif';
-    var BODY = '"Hind Siliguri", "Noto Sans Devanagari", sans-serif';
-    await fonts(lang);
-    var art = await Promise.all([img("/assets/img/conch.webp"), img("/assets/img/durga-face.webp"), img("/assets/img/organisers.webp")]);
-
-    canvas.width = W; canvas.height = H;
-    var ctx = canvas.getContext("2d");
-    ctx.textAlign = "center";
-    ctx.textBaseline = "alphabetic";
-
-    // Parchment
-    var bg = ctx.createRadialGradient(W / 2, H * .45, 120, W / 2, H / 2, H * .75);
-    bg.addColorStop(0, "#FFF8EA"); bg.addColorStop(.6, C.parchment); bg.addColorStop(1, C.p2);
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
-
-    // Artwork band: conch on the left, Maa Durga on the right (invitation design A)
-    fadedImage(ctx, art[0], 40, 60, 330, 470, "right");
-    fadedImage(ctx, art[1], 640, 46, 400, 560, "left");
-    var glow = ctx.createRadialGradient(W / 2, 250, 10, W / 2, 250, 330);
-    glow.addColorStop(0, "rgba(255,236,190,.95)"); glow.addColorStop(1, "rgba(255,236,190,0)");
-    ctx.fillStyle = glow;
-    ctx.fillRect(180, 40, 720, 460);
-
-    // Border: sindoor band, gold inner line, rosettes in the corners
-    ctx.strokeStyle = C.sindoor; ctx.lineWidth = 26;
-    ctx.strokeRect(13, 13, W - 26, H - 26);
-    ctx.strokeStyle = C.gold; ctx.lineWidth = 4;
-    ctx.strokeRect(38, 38, W - 76, H - 76);
-    ctx.strokeStyle = C.gold2; ctx.lineWidth = 1.5;
-    ctx.strokeRect(48, 48, W - 96, H - 96);
-    [[40, 40], [W - 40, 40], [40, H - 40], [W - 40, H - 40]].forEach(function (p) { rosette(ctx, p[0], p[1], 34); });
-    for (var k = 1; k < 9; k += 1) {
-      ctx.fillStyle = C.gold2;
-      ctx.beginPath(); ctx.arc(W * k / 9, 13, 4, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(W * k / 9, H - 13, 4, 0, Math.PI * 2); ctx.fill();
-    }
-
-    // Heading
-    ctx.fillStyle = C.deep;
-    ctx.font = "44px " + SERIF;
-    ctx.fillText(t("hero.welcome"), W / 2, 150);
-    flourish(ctx, W / 2, 178, 300);
-    ctx.fillStyle = C.sindoor;
-    var evName = pick(ev.name);
-    fit(ctx, evName, 560, lang === "bn" ? 92 : 64, DISP, lang === "bn" ? "" : "700");
-    var evLines = wrap(ctx, evName, 520);
-    evLines.forEach(function (l, i) { ctx.fillText(l, W / 2, 268 + i * (lang === "bn" ? 88 : 70)); });
-    var tagY = 268 + evLines.length * (lang === "bn" ? 88 : 70) + 6;
-    ctx.font = "34px " + SERIF;
-    ctx.fillText(t("tagline"), W / 2, tagY);
-
-    // Photo (optional) in a gold ring
-    var nameTop = 640;
-    if (data.photo) {
-      var cx = W / 2, cy = 590, r = 108;
-      ctx.save();
-      ctx.beginPath(); ctx.arc(cx, cy, r + 12, 0, Math.PI * 2); ctx.fillStyle = C.gold; ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy, r + 5, 0, Math.PI * 2); ctx.fillStyle = C.sindoor; ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
-      var p = data.photo, s = Math.max((2 * r) / p.width, (2 * r) / p.height);
-      ctx.drawImage(p, cx - (p.width * s) / 2, cy - (p.height * s) / 2, p.width * s, p.height * s);
-      ctx.restore();
-      nameTop = 760;
-    }
-
-    // Honoured kaarigar: name in the place of honour
-    ctx.fillStyle = C.ink2;
-    ctx.font = "600 30px " + BODY;
-    ctx.fillText("—  " + t("card.honoured") + "  —", W / 2, nameTop);
-    ctx.fillStyle = C.sindoor;
-    fit(ctx, data.name || "", 880, lang === "bn" ? 116 : 92, DISP, lang === "bn" ? "" : "700");
-    ctx.fillText(data.name || "", W / 2, nameTop + 112);
-
-    var tradeTxt = (data.trades || []).map(function (id) { var tr = D.trade(id); return tr ? tr.short[li] : ""; }).filter(Boolean).join(", ");
-    var line2 = [tradeTxt, data.puja].filter(Boolean).join("  ·  ");
-    ctx.fillStyle = C.ink;
-    fit(ctx, line2, 900, 40, SERIF);
-    ctx.fillText(line2, W / 2, nameTop + 176);
-    var placeTxt = [data.area, data.district >= 0 && data.district != null ? D.DISTRICTS[data.district][li] : ""].filter(Boolean).join(", ");
-    ctx.fillStyle = C.ink2;
-    fit(ctx, placeTxt, 860, 30, BODY, "500");
-    if (placeTxt) ctx.fillText(placeTxt, W / 2, nameTop + 222);
-
-    var fam = +data.family || 0;
-    var famTxt = fam > 0 ? t("card.withFamily") + " · " + t("family.n", { n: D.localDigits(String(fam + 1), lang) }) : "";
-    if (famTxt) {
-      ctx.font = "600 28px " + BODY;
-      var fw = ctx.measureText(famTxt).width + 48;
-      ctx.fillStyle = "rgba(158,27,31,.1)";
-      roundRect(ctx, W / 2 - fw / 2, nameTop + 244, fw, 48, 24); ctx.fill();
-      ctx.fillStyle = C.sindoor;
-      ctx.fillText(famTxt, W / 2, nameTop + 278);
-    }
-
-    // Event details
-    var evY = Math.max(nameTop + 330, 1000);
-    flourish(ctx, W / 2, evY - 30, 520);
-    ctx.fillStyle = C.deep;
-    ctx.font = "600 36px " + BODY;
-    ctx.fillText(pick(ev.date) + "  ·  " + pick(ev.time), W / 2, evY + 18);
-    ctx.font = "500 32px " + BODY;
-    fit(ctx, pick(ev.venue), 860, 32, BODY, "500");
-    ctx.fillText(pick(ev.venue), W / 2, evY + 62);
-
-    // Entry pass + organisers
-    var by = H - 230;
-    ctx.fillStyle = "rgba(255,253,248,.9)";
-    roundRect(ctx, 80, by - 8, W - 160, 176, 18); ctx.fill();
-    ctx.strokeStyle = "rgba(200,144,26,.6)"; ctx.lineWidth = 2; ctx.stroke();
-    drawQR(ctx, "BKS:" + (data.regNo || ""), 96, by + 4, 152);
-    ctx.textAlign = "left";
-    ctx.fillStyle = C.ink2;
-    ctx.font = "600 24px " + BODY;
-    ctx.fillText(t("card.entry"), 268, by + 52);
-    ctx.fillStyle = C.ink;
-    ctx.font = "700 36px " + BODY;
-    ctx.fillText(data.regNo || "", 268, by + 96);
-    ctx.fillStyle = C.ink2;
-    ctx.font = "500 22px " + BODY;
-    ctx.fillText(t("card.regno"), 268, by + 126);
-    if (art[2]) {
-      var lw = 420, lh = lw * art[2].height / art[2].width;
-      ctx.globalCompositeOperation = "multiply";
-      ctx.drawImage(art[2], W - 96 - lw, by + 80 - lh / 2, lw, lh);
-      ctx.globalCompositeOperation = "source-over";
-    }
-    ctx.textAlign = "center";
-    return canvas;
   }
 
   function roundRect(ctx, x, y, w, h, r) {
@@ -269,6 +55,260 @@
     ctx.arcTo(x, y + h, x, y, r);
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
+  }
+
+  function sparkle(ctx, x, y, r, fill) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.beginPath();
+    ctx.moveTo(0, -r);
+    ctx.quadraticCurveTo(r * .15, -r * .15, r, 0);
+    ctx.quadraticCurveTo(r * .15, r * .15, 0, r);
+    ctx.quadraticCurveTo(-r * .15, r * .15, -r, 0);
+    ctx.quadraticCurveTo(-r * .15, -r * .15, 0, -r);
+    ctx.fillStyle = fill;
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = C.ink;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // Text with a hard navy offset shadow, poster style.
+  function shadowText(ctx, text, x, y, fill, off) {
+    ctx.fillStyle = C.ink;
+    ctx.fillText(text, x + off, y + off);
+    ctx.fillStyle = fill;
+    ctx.fillText(text, x, y);
+  }
+
+  function cover(ctx, image, x, y, w, h, fx, fy) {
+    var ir = image.width / image.height, br = w / h, sw, sh, sx, sy;
+    if (ir > br) { sh = image.height; sw = sh * br; sx = (image.width - sw) * (fx == null ? .5 : fx); sy = 0; }
+    else { sw = image.width; sh = sw / br; sx = 0; sy = (image.height - sh) * (fy == null ? .5 : fy); }
+    ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
+  }
+
+  // A sticker: hard shadow, cyan backing, image clipped to the shape, navy outline.
+  function sticker(ctx, shape, image, rot, fx, fy) {
+    var b = shape.bounds;
+    ctx.save();
+    ctx.translate(b.x + b.w / 2, b.y + b.h / 2);
+    ctx.rotate(rot);
+    ctx.translate(-(b.x + b.w / 2), -(b.y + b.h / 2));
+    ctx.save(); ctx.translate(10, 10); shape.path(ctx); ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
+    shape.path(ctx); ctx.fillStyle = C.cyan; ctx.fill();
+    ctx.save(); shape.path(ctx); ctx.clip();
+    if (image) cover(ctx, image, b.x, b.y, b.w, b.h, fx, fy);
+    ctx.restore();
+    shape.path(ctx); ctx.lineWidth = 6; ctx.strokeStyle = C.ink; ctx.stroke();
+    ctx.restore();
+  }
+  function arch(x, y, w, h) {
+    return { bounds: { x: x, y: y, w: w, h: h }, path: function (ctx) {
+      var r = w / 2;
+      ctx.beginPath();
+      ctx.moveTo(x, y + r);
+      ctx.arc(x + r, y + r, r, Math.PI, 0);
+      ctx.lineTo(x + w, y + h - 18);
+      ctx.arcTo(x + w, y + h, x + w - 18, y + h, 18);
+      ctx.lineTo(x + 18, y + h);
+      ctx.arcTo(x, y + h, x, y + h - 18, 18);
+      ctx.closePath();
+    } };
+  }
+  function circle(cx, cy, r) {
+    return { bounds: { x: cx - r, y: cy - r, w: 2 * r, h: 2 * r }, path: function (ctx) { ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); } };
+  }
+
+  function drawQR(ctx, text, x, y, size) {
+    if (typeof window.qrcode !== "function") return false;
+    var qr = window.qrcode(0, "M");
+    qr.addData(text);
+    qr.make();
+    var n = qr.getModuleCount(), cell = size / (n + 2);
+    ctx.fillStyle = C.paper;
+    ctx.fillRect(x, y, size, size);
+    ctx.fillStyle = C.ink;
+    for (var r = 0; r < n; r += 1) {
+      for (var c = 0; c < n; c += 1) {
+        if (qr.isDark(r, c)) ctx.fillRect(Math.round(x + (c + 1) * cell), Math.round(y + (r + 1) * cell), Math.ceil(cell), Math.ceil(cell));
+      }
+    }
+    return true;
+  }
+
+  /* data: { name, trades:[ids], puja, area, district, family, regNo, photo (Image|null) } */
+  async function draw(canvas, data, lang) {
+    lang = lang || BKS.i18n.lang;
+    var li = ["bn", "en", "hi"].indexOf(lang);
+    var t = BKS.i18n.t, pick = BKS.i18n.pick, D = BKS.data, ev = BKS.config.event;
+    var FAM = family(lang);
+    var BODY = '"Hind Siliguri", "Noto Sans Devanagari", sans-serif';
+    var up = function (s) { return lang === "en" ? String(s).toUpperCase() : String(s); };
+    await fonts(lang);
+    var art = await Promise.all([img("/assets/img/conch.webp"), img("/assets/img/durga-face.webp"), img("/assets/img/organisers.webp")]);
+
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext("2d");
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.lineJoin = "round";
+
+    // White sheet
+    ctx.fillStyle = C.paper;
+    ctx.fillRect(0, 0, W, H);
+
+    // Coral poster top with a zig-zag edge
+    var top = 628, tooth = 36, depth = 22;
+    ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(W, 0); ctx.lineTo(W, top);
+    for (var zx = W; zx > 0; zx -= tooth) { ctx.lineTo(zx - tooth / 2, top + depth); ctx.lineTo(zx - tooth, top); }
+    ctx.closePath();
+    ctx.fillStyle = C.coral; ctx.fill();
+    ctx.lineWidth = 5; ctx.strokeStyle = C.ink; ctx.stroke();
+
+    // Halftone dots in the corners of the coral block
+    ctx.fillStyle = "rgba(255,255,255,.22)";
+    for (var hy = 40; hy < 300; hy += 22) {
+      for (var hx = W - 40; hx > W - 300; hx -= 22) {
+        var rr = Math.max(0, 5 - ((W - hx) + hy) / 90);
+        if (rr > .4) { ctx.beginPath(); ctx.arc(hx, hy, rr, 0, Math.PI * 2); ctx.fill(); }
+      }
+    }
+
+    // Welcome pill
+    setFont(ctx, 700, 36, FAM, false);
+    var wl = t("hero.welcome"), ww = ctx.measureText(wl).width + 56;
+    ctx.fillStyle = C.ink; roundRect(ctx, W / 2 - ww / 2 + 5, 62 + 5, ww, 60, 30); ctx.fill();
+    ctx.fillStyle = C.paper; roundRect(ctx, W / 2 - ww / 2, 62, ww, 60, 30); ctx.fill();
+    ctx.lineWidth = 4; ctx.strokeStyle = C.ink; ctx.stroke();
+    ctx.fillStyle = C.ink; ctx.fillText(wl, W / 2, 104);
+
+    // Event name: big condensed white with a navy offset
+    var evName = up(pick(ev.name));
+    var es = fit(ctx, evName, 940, 140, FAM, 800, true, 84);
+    if (ctx.measureText(evName).width > 940) {
+      var words = evName.split(" "), half = Math.ceil(words.length / 2);
+      var l1 = words.slice(0, half).join(" "), l2 = words.slice(half).join(" ");
+      es = Math.min(fit(ctx, l1, 940, 130, FAM, 800, true), fit(ctx, l2, 940, 130, FAM, 800, true));
+      setFont(ctx, 800, es, FAM, true);
+      shadowText(ctx, l1, W / 2, 140 + es * .9, C.paper, 7);
+      shadowText(ctx, l2, W / 2, 140 + es * 1.85, C.paper, 7);
+    } else {
+      shadowText(ctx, evName, W / 2, 140 + es * .95, C.paper, 7);
+    }
+
+    // Artwork stickers: the conch-blower in an arch, Maa Durga in a circle
+    sticker(ctx, arch(64, 318, 252, 290), art[0], -0.07, .4, .2);
+    sticker(ctx, circle(W - 222, 462, 150), art[1], 0.05, .5, .15);
+    sparkle(ctx, 352, 330, 26, C.cyan);
+    sparkle(ctx, W - 92, 300, 20, C.paper);
+    sparkle(ctx, 300, 600, 16, C.paper);
+
+    // Middle: the kaarigar's photo if given, otherwise the three-word tagline
+    if (data.photo) {
+      var pcx = W / 2 - 10, pcy = 470, pr = 118;
+      ctx.save(); ctx.beginPath(); ctx.arc(pcx + 8, pcy + 8, pr + 8, 0, Math.PI * 2); ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.arc(pcx, pcy, pr + 8, 0, Math.PI * 2); ctx.fillStyle = C.paper; ctx.fill(); ctx.lineWidth = 5; ctx.strokeStyle = C.ink; ctx.stroke();
+      ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, Math.PI * 2); ctx.clip();
+      cover(ctx, data.photo, pcx - pr, pcy - pr, 2 * pr, 2 * pr, .5, .3);
+      ctx.restore();
+    } else {
+      var tags = t("tagline").split("•").map(function (s) { return s.trim(); }).filter(Boolean);
+      tags.forEach(function (tg, i) {
+        var ty = 400 + i * 74, rot = i % 2 ? .04 : -.04;
+        setFont(ctx, 700, 36, FAM, false);
+        var tw = ctx.measureText(tg).width + 44;
+        ctx.save();
+        ctx.translate(W / 2 - 14, ty);
+        ctx.rotate(rot);
+        ctx.fillStyle = C.ink; roundRect(ctx, -tw / 2 + 5, -30 + 5, tw, 58, 10); ctx.fill();
+        ctx.fillStyle = i === 1 ? C.paper : C.cyan; roundRect(ctx, -tw / 2, -30, tw, 58, 10); ctx.fill();
+        ctx.lineWidth = 4; ctx.strokeStyle = C.ink; ctx.stroke();
+        ctx.fillStyle = C.ink; ctx.fillText(tg, 0, 12);
+        ctx.restore();
+      });
+    }
+
+    // Honoured kaarigar
+    setFont(ctx, 700, 32, FAM, false);
+    var hon = t("card.honoured"), hw = ctx.measureText(hon).width;
+    ctx.fillStyle = C.coralDeep;
+    ctx.fillText(hon, W / 2, 712);
+    ctx.fillStyle = C.cyan; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+    [[-1, 1], [1, 1]].forEach(function (s) {
+      var bx = W / 2 + s[0] * (hw / 2 + 24) - (s[0] < 0 ? 70 : 0);
+      roundRect(ctx, bx, 696, 70, 12, 6); ctx.fill(); ctx.stroke();
+    });
+
+    // The name, in the place of honour
+    var name = up(data.name || "");
+    var ns = fit(ctx, name, 940, 156, FAM, 800, true, 60);
+    ctx.fillStyle = C.ink;
+    ctx.fillText(name, W / 2, 712 + 30 + ns * .9);
+    var y = 712 + 30 + ns * .9;
+
+    var tradeTxt = (data.trades || []).map(function (id) { var tr = D.trade(id); return tr ? tr.short[li] : ""; }).filter(Boolean).join(", ");
+    var line2 = [tradeTxt, data.puja].filter(Boolean).join("  ·  ");
+    fit(ctx, line2, 940, 42, FAM, 700, false);
+    ctx.fillStyle = C.ink;
+    y += 60; ctx.fillText(line2, W / 2, y);
+    var placeTxt = [data.area, data.district >= 0 && data.district != null ? D.DISTRICTS[data.district][li] : ""].filter(Boolean).join(", ");
+    if (placeTxt) {
+      fit(ctx, placeTxt, 900, 30, BODY, 500, false);
+      ctx.fillStyle = C.ink3;
+      y += 44; ctx.fillText(placeTxt, W / 2, y);
+    }
+
+    var fam = +data.family || 0;
+    if (fam > 0) {
+      var famTxt = t("card.withFamily") + " · " + t("family.n", { n: D.localDigits(String(fam + 1), lang) });
+      setFont(ctx, 700, 28, FAM, false);
+      var fw = ctx.measureText(famTxt).width + 48;
+      y += 22;
+      ctx.fillStyle = C.ink; roundRect(ctx, W / 2 - fw / 2 + 4, y + 4, fw, 50, 25); ctx.fill();
+      ctx.fillStyle = C.cyan; roundRect(ctx, W / 2 - fw / 2, y, fw, 50, 25); ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = C.ink; ctx.stroke();
+      ctx.fillStyle = C.ink; ctx.fillText(famTxt, W / 2, y + 35);
+    }
+
+    // Event block
+    var ey = 1066;
+    ctx.fillStyle = C.ink;
+    roundRect(ctx, 56, ey, W - 112, 116, 22); ctx.fill();
+    fit(ctx, pick(ev.date) + "  ·  " + pick(ev.time), 900, 38, FAM, 700, false);
+    ctx.fillStyle = C.paper;
+    ctx.fillText(pick(ev.date) + "  ·  " + pick(ev.time), W / 2, ey + 50);
+    fit(ctx, pick(ev.venue), 900, 32, FAM, 600, false);
+    ctx.fillStyle = C.cyan;
+    ctx.fillText(pick(ev.venue), W / 2, ey + 94);
+
+    // Entry pass + organisers
+    var by = 1198;
+    ctx.fillStyle = C.cyanTint;
+    roundRect(ctx, 56, by, W - 112, 120, 18); ctx.fill();
+    ctx.lineWidth = 3; ctx.strokeStyle = C.ink; ctx.stroke();
+    drawQR(ctx, "BKS:" + (data.regNo || ""), 68, by + 8, 104);
+    ctx.textAlign = "left";
+    setFont(ctx, 700, 24, FAM, false); ctx.fillStyle = C.coralDeep;
+    ctx.fillText(t("card.entry"), 188, by + 40);
+    setFont(ctx, 800, 40, FAM, true); ctx.fillStyle = C.ink;
+    ctx.fillText(data.regNo || "", 188, by + 82);
+    setFont(ctx, 500, 20, BODY, false); ctx.fillStyle = C.ink3;
+    ctx.fillText(t("card.regno"), 188, by + 106);
+    if (art[2]) {
+      var lw = 360, lh = lw * art[2].height / art[2].width;
+      ctx.globalCompositeOperation = "multiply";
+      ctx.drawImage(art[2], W - 72 - lw, by + 60 - lh / 2, lw, lh);
+      ctx.globalCompositeOperation = "source-over";
+    }
+    ctx.textAlign = "center";
+
+    // Frame
+    ctx.lineWidth = 16; ctx.strokeStyle = C.ink;
+    ctx.strokeRect(8, 8, W - 16, H - 16);
+    return canvas;
   }
 
   /* ----- Share / save ----- */
@@ -318,11 +358,10 @@
     return "KRS26-" + out;
   }
 
-  /* ----- Celebration: marigold petals burst from the card ----- */
+  /* ----- Celebration: confetti bursts from the card ----- */
   function burst(host) {
     if (BKS.ui && BKS.ui.reduced) return;
     var cv = document.createElement("canvas");
-    cv.className = "burst";
     cv.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90";
     document.body.appendChild(cv);
     var dpr = Math.min(window.devicePixelRatio || 1, 2), w = innerWidth, h = innerHeight;
@@ -331,11 +370,11 @@
     ctx.scale(dpr, dpr);
     var r = (host || document.body).getBoundingClientRect();
     var ox = r.left + r.width / 2, oy = r.top + Math.min(r.height / 2, h / 2);
-    var cols = ["#F2A516", "#F7C23B", "#C3271F", "#E2462F", "#E2B04A", "#FFFFFF"];
+    var cols = [C.coral, C.cyan, C.paper, C.ink, "#FFB3B3", "#8BEAFF"];
     var ps = [];
-    for (var i = 0; i < 120; i += 1) {
+    for (var i = 0; i < 130; i += 1) {
       var a = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 9;
-      ps.push({ x: ox, y: oy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5, r: 4 + Math.random() * 7, rot: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[i % cols.length], life: 0 });
+      ps.push({ x: ox, y: oy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5, r: 4 + Math.random() * 7, rot: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[i % cols.length], sq: i % 3 === 0 });
     }
     var start = performance.now();
     (function frame(now) {
@@ -346,7 +385,10 @@
         ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
         ctx.globalAlpha = Math.max(0, 1 - el / 2600);
         ctx.fillStyle = p.c;
-        ctx.beginPath(); ctx.ellipse(0, 0, p.r, p.r * .55, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        if (p.sq) ctx.rect(-p.r * .7, -p.r * .4, p.r * 1.4, p.r * .8); else ctx.ellipse(0, 0, p.r, p.r * .55, 0, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
         ctx.restore();
       });
       if (el < 2600) requestAnimationFrame(frame); else cv.remove();

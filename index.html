@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>কারিগর রত্ন সম্মাননা · BKS Pujo</title>
   <meta name="description" content="দুর্গাপুজো ২০২৬-এ কাজ করা প্রত্যেক কারিগরের জন্য সাদর আমন্ত্রণ। কথা বলে দু'মিনিটে নাম লেখান, নিজের নামে নিমন্ত্রণপত্র নিন।">
-  <meta name="theme-color" content="#9E1B1F">
+  <meta name="theme-color" content="#FF4D4D">
   <meta property="og:title" content="কারিগর রত্ন সম্মাননা · সাদর আমন্ত্রণ">
   <meta property="og:description" content="আপনার হাতেই মা আসেন। এবার আপনাকে সম্মান জানাতে চাই। দু'মিনিটে নাম লেখান।">
   <meta property="og:image" content="https://bks-bengal.vercel.app/assets/img/og-invite.jpg">
@@ -15,7 +15,7 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Tiro+Bangla&family=Tiro+Devanagari+Hindi&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wdth,wght@75..100,400..800&family=Anek+Devanagari:wdth,wght@75..100,400..800&display=swap">
   <link rel="preload" as="image" href="/assets/img/durga-face.webp">
   <link rel="stylesheet" href="/css/main.css">
 </head>
@@ -49,10 +49,10 @@
       <div class="wrap hero-grid">
         <div class="hero-art">
           <div class="art-glow" aria-hidden="true"></div>
-          <figure class="art art-conch" data-art="conch">
+          <figure class="art art-conch float" data-art="conch">
             <img src="/assets/img/conch.webp" width="262" height="380" alt="শঙ্খ বাজাচ্ছেন — নিমন্ত্রণপত্রের ছবি" fetchpriority="high">
           </figure>
-          <figure class="art art-durga" data-art="durga">
+          <figure class="art art-durga float" data-art="durga" style="animation-delay:-2.5s">
             <picture>
               <source media="(min-width: 960px)" srcset="/assets/img/durga-kaarigars.webp">
               <img src="/assets/img/durga-face.webp" width="370" height="548" alt="মা দুর্গা — নিমন্ত্রণপত্রের ছবি" fetchpriority="high">
@@ -126,7 +126,7 @@
     </section>
 
     <!-- যাঁদের হাতে গড়ে ওঠে পুজো · trades -->
-    <section class="sec" id="trades" style="padding-top:24px">
+    <section class="sec blk-mist" id="trades">
       <div class="wrap center">
         <span class="kicker" data-reveal data-i18n="trades.kicker"></span>
         <h2 class="h2" data-split data-i18n="trades.title"></h2>
@@ -184,7 +184,7 @@
     </section>
 
     <!-- Film -->
-    <section class="sec" id="film" style="padding-top:24px">
+    <section class="sec blk-cyan" id="film">
       <div class="wrap">
         <div class="center">
           <span class="kicker" data-reveal data-i18n="film.kicker"></span>
@@ -204,7 +204,7 @@
     </section>
 
     <!-- Dedication -->
-    <section class="sec dedi" id="dedication">
+    <section class="sec dedi blk-ink" id="dedication">
       <div class="wrap center">
         <span class="kicker" data-reveal data-i18n="dedi.kicker"></span>
         <h2 class="h2" data-split data-i18n="dedi.title"></h2>
@@ -238,7 +238,7 @@
       </div>
     </section>
 
-    <section class="sec org" style="padding-top:8px">
+    <section class="sec org blk-mist">
       <div class="wrap">
         <span class="kicker" data-reveal data-i18n="org.title"></span>
         <img src="/assets/img/organisers.webp" alt="KarmYog for the 21st Century এবং Bharatiya Krishak Samaj" loading="lazy" width="800" height="266" data-reveal>

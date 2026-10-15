@@ -47,7 +47,7 @@
     var tels = BKS.config.helpline.map(function (h) {
       return '<a class="btn btn-primary" href="tel:' + h.tel + '">' + icon("phone") + "<span>" + esc(t("help.call")) + " · " + esc(BKS.data.localDigits(h.display, BKS.i18n.lang === "hi" ? "en" : BKS.i18n.lang)) + "</span></a>";
     }).join("");
-    openSheet("<h3>" + esc(t("help.title")) + "</h3><p>" + esc(t("help.body")) + '</p><div style="display:grid;gap:10px;margin:16px 0">' + tels + '</div><p class="free-note" style="background:rgba(158,27,31,.07);border-color:var(--gold-soft)">' + icon("check") + "<span>" + esc(t("help.free")) + "</span></p>");
+    openSheet("<h3>" + esc(t("help.title")) + "</h3><p>" + esc(t("help.body")) + '</p><div style="display:grid;gap:10px;margin:16px 0">' + tels + '</div><p class="free-note" style="border-color:var(--ink)">' + icon("check") + "<span>" + esc(t("help.free")) + "</span></p>");
   }
 
   /* ----- Click-to-load media (brief, section 11: nothing autoplays) ----- */

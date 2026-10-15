@@ -4,6 +4,10 @@ An animated, voice-first invitation and registration site for every kaarigar who
 
 > আপনার হাতেই মা আসেন। এবার আপনাকে সম্মান জানাতে চাই।
 
+## Look
+
+The palette is **Coral Fire `#FF4D4D`** and **Sky Cyan `#5CE1FF`**, with deep navy `#0E1A2B` as the ink. Sections are colour-blocked like a festival poster, and the display type is condensed Anek Bangla (Anek Devanagari for Hindi). For contrast, white text only goes on coral at large, bold sizes, and text on cyan is always navy.
+
 ## What's here
 
 | Page | Path | What it does |

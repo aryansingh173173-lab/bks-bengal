@@ -89,7 +89,8 @@
     var ctx = cv.getContext("2d");
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, list = [], running = false, raf = 0;
-    var colors = [["#F2A516", "#E07B10"], ["#F7C23B", "#E8961A"], ["#C3271F", "#8E1418"], ["#E2462F", "#A51C1C"]];
+    // Festival confetti in the palette: sky cyan, white and navy over the coral hero.
+    var colors = [["#5CE1FF", "#2CC9F0"], ["#FFFFFF", "#E6FAFF"], ["#8BEAFF", "#5CE1FF"], ["#0E1A2B", "#33415A"]];
     function size() {
       var r = cv.getBoundingClientRect();
       W = r.width; H = r.height;
@@ -113,7 +114,7 @@
       var g = ctx.createLinearGradient(-p.r, 0, p.r, 0);
       g.addColorStop(0, p.c[0]); g.addColorStop(1, p.c[1]);
       ctx.fillStyle = g;
-      ctx.globalAlpha = .85;
+      ctx.globalAlpha = .9;
       ctx.beginPath();
       ctx.moveTo(0, -p.r);
       ctx.bezierCurveTo(p.r, -p.r * .6, p.r * .8, p.r * .7, 0, p.r);
