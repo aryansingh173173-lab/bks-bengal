@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="bn" data-lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>নিমন্ত্রণপত্র · কারিগর রত্ন সম্মাননা</title>
+  <meta name="theme-color" content="#9E1B1F">
+  <meta property="og:title" content="আপনার নিমন্ত্রণপত্র · কারিগর রত্ন সম্মাননা">
+  <meta property="og:description" content="আপনার হাতেই মা আসেন। এবার আপনাকে সম্মান জানাতে চাই।">
+  <meta property="og:image" content="/assets/img/og-invite.jpg">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Tiro+Bangla&family=Tiro+Devanagari+Hindi&display=swap">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/register.css">
+</head>
+<body class="reg-body">
+  <header class="reg-top">
+    <a class="icon-btn" href="/" aria-label="মূল পাতা"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#back"/></svg></a>
+    <span class="spacer" style="flex:1"></span>
+    <div class="lang-switch" data-lang-switch></div>
+    <button class="help-btn" type="button" data-help><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#help"/></svg><span data-i18n="nav.help">সাহায্য চাই</span></button>
+  </header>
+  <main class="reg-main">
+    <div class="card-stage" data-stage></div>
+  </main>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/data.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script src="/js/card.js"></script>
+  <script>
+  (function (BKS) {
+    "use strict";
+    var t = BKS.i18n.t, esc = BKS.ui.esc, icon = BKS.ui.icon;
+    var stage = document.querySelector("[data-stage]");
+    var m = location.hash.match(/d=([A-Za-z0-9_-]+)/);
+    var d = m ? BKS.card.decode(m[1]) : null;
+    var ACC = "bks.accepted";
+
+    function render(first) {
+      if (!d || !d.n || !d.r) {
+        stage.innerHTML = "<h2>" + esc(BKS.i18n.pick(BKS.config.event.name)) + "</h2><p class=\"lead\">" + esc(t("card.invalid")) + "</p>" +
+          '<a class="btn btn-primary btn-xl" href="/register/?mode=voice">' + icon("mic") + "<span>" + esc(t("cta.voice")) + "</span></a>";
+        return;
+      }
+      var accepted = false;
+      try { accepted = (JSON.parse(localStorage.getItem(ACC) || "[]")).indexOf(d.r) >= 0; } catch (e) { /* ignore */ }
+      stage.innerHTML =
+        (d.s ? '<span class="assist-badge">' + esc(t("card.bySardar", { v: d.s })) + "</span>" : "") +
+        "<h2>" + esc(t("card.yours")) + "</h2>" +
+        '<div class="card-flip"><canvas class="card-canvas" data-card width="1080" height="1350"></canvas></div>' +
+        '<div class="card-actions">' +
+        (accepted ? '<p class="consent-box">' + icon("check") + "<span>" + esc(t("card.accepted")) + "</span></p>"
+          : '<button type="button" class="btn btn-primary btn-xl pulse" data-act="accept">' + icon("check") + "<span>" + esc(t("card.accept")) + "</span></button>") +
+        '<div class="two"><button type="button" class="btn btn-wa" data-act="wa">' + icon("wa") + "<span>" + esc(t("card.whatsapp")) + '</span></button><button type="button" class="btn btn-ghost" data-act="save">' + icon("download") + "<span>" + esc(t("card.save")) + "</span></button></div>" +
+        '<a class="btn btn-gold" href="/event/">' + icon("cal") + "<span>" + esc(t("card.event")) + "</span></a>" +
+        '<p class="note">' + esc(t("footer.free")) + "</p></div>";
+      var cv = stage.querySelector("[data-card]");
+      var data = { name: d.n, trades: d.t || [], puja: d.p || "", area: d.a || "", district: d.d == null ? -1 : d.d, family: d.f || 0, regNo: d.r };
+      BKS.card.draw(cv, data, BKS.i18n.lang).then(function () { if (first) cv.classList.add("reveal"); });
+      var file = "nimantran-" + d.r + ".jpg";
+      stage.querySelector(".card-actions").onclick = function (e) {
+        var b = e.target.closest("[data-act]");
+        if (!b) return;
+        if (b.dataset.act === "save") BKS.card.save(cv, file);
+        if (b.dataset.act === "wa") BKS.card.share(cv, t("card.shareText", { event: BKS.i18n.pick(BKS.config.event.name), name: d.n, trade: "", puja: d.p || "", url: location.origin + "/" }), file);
+        if (b.dataset.act === "accept") {
+          try { var l = JSON.parse(localStorage.getItem(ACC) || "[]"); l.push(d.r); localStorage.setItem(ACC, JSON.stringify(l)); } catch (er) { /* ignore */ }
+          BKS.card.burst(cv);
+          render(false);
+        }
+      };
+    }
+    render(true);
+    document.addEventListener("bks:lang", function () { render(false); });
+  })(window.BKS);
+  </script>
+</body>
+</html>

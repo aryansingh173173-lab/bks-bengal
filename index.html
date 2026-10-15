@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="bn" data-lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>কারিগর রত্ন সম্মাননা · BKS Pujo</title>
+  <meta name="description" content="দুর্গাপুজো ২০২৬-এ কাজ করা প্রত্যেক কারিগরের জন্য সাদর আমন্ত্রণ। কথা বলে দু'মিনিটে নাম লেখান, নিজের নামে নিমন্ত্রণপত্র নিন।">
+  <meta name="theme-color" content="#9E1B1F">
+  <meta property="og:title" content="কারিগর রত্ন সম্মাননা · সাদর আমন্ত্রণ">
+  <meta property="og:description" content="আপনার হাতেই মা আসেন। এবার আপনাকে সম্মান জানাতে চাই। দু'মিনিটে নাম লেখান।">
+  <meta property="og:image" content="/assets/img/og-invite.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Tiro+Bangla&family=Tiro+Devanagari+Hindi&display=swap">
+  <link rel="preload" as="image" href="/assets/img/durga-face.webp">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <a class="sr-only" href="#main">মূল অংশে যান</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="BKS Pujo">
+      <svg class="brand-mark" aria-hidden="true"><use href="/assets/icons.svg#mark"/></svg>
+      <span class="brand-name" data-slot="event.name">কারিগর রত্ন সম্মাননা</span>
+    </a>
+    <span class="spacer"></span>
+    <div class="lang-switch" data-lang-switch></div>
+    <a class="help-btn" href="#help" data-help><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#help"/></svg><span data-i18n="nav.help">সাহায্য চাই</span></a>
+  </header>
+
+  <main id="main">
+    <!-- 1 · Invitation landing -->
+    <section class="hero" data-hero>
+      <svg class="hero-frame" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <rect class="f-outer" x="0.4" y="0.4" width="99.2" height="99.2" rx="1.2" vector-effect="non-scaling-stroke" pathLength="1"/>
+        <rect class="f-inner" x="1.4" y="1.1" width="97.2" height="97.8" rx="1" vector-effect="non-scaling-stroke" pathLength="1"/>
+      </svg>
+      <svg class="corner tl" aria-hidden="true"><use href="/assets/icons.svg#corner"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="/assets/icons.svg#corner"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="/assets/icons.svg#corner"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="/assets/icons.svg#corner"/></svg>
+      <div class="hero-sun" aria-hidden="true" data-mandala></div>
+      <canvas id="petals" aria-hidden="true"></canvas>
+
+      <div class="wrap hero-grid">
+        <div class="hero-art">
+          <div class="art-glow" aria-hidden="true"></div>
+          <figure class="art art-conch" data-art="conch">
+            <img src="/assets/img/conch.webp" width="262" height="380" alt="শঙ্খ বাজাচ্ছেন — নিমন্ত্রণপত্রের ছবি" fetchpriority="high">
+          </figure>
+          <figure class="art art-durga" data-art="durga">
+            <picture>
+              <source media="(min-width: 960px)" srcset="/assets/img/durga-kaarigars.webp">
+              <img src="/assets/img/durga-face.webp" width="370" height="548" alt="মা দুর্গা — নিমন্ত্রণপত্রের ছবি" fetchpriority="high">
+            </picture>
+          </figure>
+        </div>
+
+        <div class="hero-copy">
+          <p class="welcome" data-hero-in>
+            <span data-i18n="hero.welcome">সাদর আমন্ত্রণ</span>
+            <svg class="flourish" aria-hidden="true" viewBox="0 0 220 22"><path d="M4 11h70c8 0 10-7 18-7s10 7 18 7 10-7 18-7 10 7 18 7h70" pathLength="1"/><circle cx="110" cy="11" r="3" fill="currentColor"/></svg>
+          </p>
+          <h1 class="title" data-title data-slot="event.name">কারিগর রত্ন সম্মাননা</h1>
+          <p class="series" data-hero-in data-slot="event.series">কারিগর বিজয়া সম্মিলনী ২০২৬</p>
+          <p class="tagline" data-hero-in data-tagline><span data-i18n="tagline">শিকড় • সম্ভাবনা • সমৃদ্ধি</span></p>
+          <p class="hero-line" data-hero-in data-i18n="hero.line">আপনার হাতেই মা আসেন। এবার আপনাকে সম্মান জানাতে চাই।</p>
+          <div class="cta-stack" data-hero-in>
+            <a class="btn btn-primary btn-xl pulse" href="/register/?mode=voice" data-magnet>
+              <svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg>
+              <span data-i18n="cta.voice">কথা বলে নাম লেখান</span>
+            </a>
+            <div class="cta-row">
+              <a class="btn btn-ghost btn-sm" href="/register/?mode=text"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#pencil"/></svg><span data-i18n="cta.text">লিখে করব</span></a>
+              <a class="btn btn-ghost btn-sm" href="/register/?mode=crew"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#users"/></svg><span data-i18n="cta.crew">সর্দার হিসেবে দলের নাম দেব</span></a>
+            </div>
+            <p class="cta-meta" data-i18n="cta.meta">২ মিনিট · ৬টি প্রশ্ন · সম্পূর্ণ বিনামূল্যে</p>
+            <button class="anthem-btn" type="button" data-media="anthem">
+              <span class="disc"><svg aria-hidden="true"><use href="/assets/icons.svg#play"/></svg></span>
+              <span data-i18n="anthem.play">সম্মিলনীর গান শুনুন</span>
+              <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </button>
+          </div>
+          <p class="hero-for" data-hero-in data-i18n="hero.for">দুর্গাপুজো ২০২৬-এ যাঁরা কাজ করেছেন, সেই সব কারিগরের জন্য</p>
+          <div class="facts" data-hero-in>
+            <span class="fact"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#cal"/></svg><span data-slot="event.date">বুধবার, ৪ নভেম্বর ২০২৬</span></span>
+            <span class="fact"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#pin"/></svg><span data-slot="event.venue">নেতাজি ইন্ডোর স্টেডিয়াম, কলকাতা</span></span>
+          </div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#why" aria-label="নিচে যান"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#down"/></svg></a>
+    </section>
+
+    <div class="band" aria-hidden="true">
+      <div class="band-track" data-band></div>
+    </div>
+
+    <!-- কেন এই সম্মান · reel -->
+    <section class="sec" id="why">
+      <div class="wrap why-grid">
+        <div>
+          <span class="kicker" data-reveal data-i18n="why.kicker">কেন এই সম্মান</span>
+          <h2 class="h2" data-split data-i18n="why.title">পুজো শুরু হলেই যাঁরা আড়ালে চলে যান, তাঁরাই আসল নায়ক</h2>
+          <p class="lead" data-reveal data-i18n="why.body"></p>
+          <div class="stats">
+            <div class="stat" data-reveal><b data-i18n="why.stat1">লক্ষ</b><span data-i18n="why.stat1b"></span></div>
+            <div class="stat" data-reveal><b data-count="16">১৬</b><span data-i18n="why.stat2b"></span></div>
+            <div class="stat" data-reveal><b data-count="2">২</b><span data-i18n="why.stat3b"></span></div>
+          </div>
+        </div>
+        <div data-reveal="scale">
+          <button class="facade reel" type="button" data-media="reel">
+            <span class="reel-poster">
+              <img src="/assets/img/conch.webp" alt="" loading="lazy" style="object-fit:cover;width:100%;height:100%">
+            </span>
+            <span class="shade"></span>
+            <span class="play"><svg aria-hidden="true"><use href="/assets/icons.svg#play"/></svg></span>
+            <span class="cap"><b data-i18n="why.reel">মহাচার্যজির কথা শুনুন</b><small>Instagram · @dharmsansthapan · <span data-i18n="media.tapNote"></span></small></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- যাঁদের হাতে গড়ে ওঠে পুজো · trades -->
+    <section class="sec" id="trades" style="padding-top:24px">
+      <div class="wrap center">
+        <span class="kicker" data-reveal data-i18n="trades.kicker"></span>
+        <h2 class="h2" data-split data-i18n="trades.title"></h2>
+        <p class="lead" data-reveal data-i18n="trades.body"></p>
+        <div class="trades" data-trades></div>
+      </div>
+    </section>
+
+    <!-- মাটি থেকে মণ্ডপ · photo story -->
+    <section class="sec story" id="story" data-story>
+      <div class="wrap story-head">
+        <span class="kicker" data-reveal data-i18n="story.kicker"></span>
+        <h2 class="h2" data-split data-i18n="story.title"></h2>
+        <p class="lead" data-reveal data-i18n="story.body"></p>
+        <span class="story-hint" data-i18n="story.hint"></span>
+      </div>
+      <div class="reel-track" data-track>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p01-first-bamboo.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p01"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p02-frame-pond.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p02"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p03-night-poles.webp" alt="" loading="lazy" width="1100" height="621"></div><figcaption data-i18n="p03"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p04-frame-night.webp" alt="" loading="lazy" width="1100" height="621"></div><figcaption data-i18n="p04"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p05-shelter-water.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p05"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p06-railing.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p06"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p07-walkway-hut.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p07"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p08-decoration.webp" alt="" loading="lazy" width="1100" height="825"></div><figcaption data-i18n="p08"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p09-pandal-night.webp" alt="" loading="lazy" width="1100" height="507"></div><figcaption data-i18n="p09"></figcaption></figure>
+        <figure class="shot"><div class="ph"><img src="/assets/photos/p10-pratima.webp" alt="" loading="lazy" width="1100" height="734"></div><figcaption data-i18n="p10"></figcaption></figure>
+      </div>
+      <div class="progress-rail" aria-hidden="true"><i data-rail></i></div>
+    </section>
+
+    <!-- How it works · animated phone -->
+    <section class="sec" id="how">
+      <div class="wrap how-grid">
+        <div>
+          <span class="kicker" data-reveal data-i18n="how.kicker"></span>
+          <h2 class="h2" data-split data-i18n="how.title"></h2>
+          <ol class="steps">
+            <li data-reveal><span class="n">১</span><div><b data-i18n="how.s1t"></b><p data-i18n="how.s1"></p></div></li>
+            <li data-reveal><span class="n">২</span><div><b data-i18n="how.s2t"></b><p data-i18n="how.s2"></p></div></li>
+            <li data-reveal><span class="n">৩</span><div><b data-i18n="how.s3t"></b><p data-i18n="how.s3"></p></div></li>
+          </ol>
+          <p style="margin-top:28px"><a class="btn btn-primary" href="/register/?mode=voice"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg><span data-i18n="cta.voice"></span></a></p>
+        </div>
+        <div class="phone" data-reveal="scale" data-demo aria-hidden="true">
+          <div class="phone-screen">
+            <div class="demo-q" data-demo-q></div>
+            <button class="mic sm demo-mic" tabindex="-1" type="button"><span class="ring"></span><span class="ring"></span><span class="ring"></span><svg aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg></button>
+            <div class="demo-heard" data-demo-heard style="opacity:0"><small data-i18n="heard"></small><span data-demo-a></span></div>
+            <div class="demo-chips" data-demo-chips></div>
+            <dl class="slip" data-demo-slip></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Film -->
+    <section class="sec" id="film" style="padding-top:24px">
+      <div class="wrap">
+        <div class="center">
+          <span class="kicker" data-reveal data-i18n="film.kicker"></span>
+          <h2 class="h2" data-split data-i18n="film.title"></h2>
+          <p class="lead" data-reveal data-i18n="film.body"></p>
+        </div>
+        <div data-reveal="scale" style="margin-top:28px">
+          <button class="facade film" type="button" data-media="film" data-parallax-box>
+            <img src="/assets/img/film-thumb.webp" alt="" loading="lazy" width="960" height="540" data-parallax="0.08">
+            <span class="shade"></span>
+            <span class="play"><svg aria-hidden="true"><use href="/assets/icons.svg#play"/></svg></span>
+            <span class="cap"><b data-i18n="film.play">ছবিটি দেখুন</b><small><span data-i18n="film.credit"></span> · YouTube · <span data-i18n="media.tapNote"></span></small></span>
+          </button>
+          <p class="credit"><span data-i18n="film.credit"></span><a href="https://www.youtube.com/watch?v=BKrUP5Froy4" target="_blank" rel="noopener" data-i18n="media.yt">YouTube-এ দেখুন</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dedication -->
+    <section class="sec dedi" id="dedication">
+      <div class="wrap center">
+        <span class="kicker" data-reveal data-i18n="dedi.kicker"></span>
+        <h2 class="h2" data-split data-i18n="dedi.title"></h2>
+        <p class="lead" data-reveal data-i18n="dedi.body"></p>
+        <div class="dedi-art" data-reveal="rise"><img src="/assets/img/dedication.webp" alt="নিমন্ত্রণপত্রের উৎসর্গ-পাতা: কারিগরদের নাম, মা দুর্গা ও কাজ করা কারিগর" loading="lazy" width="1280" height="697" data-parallax="0.05"></div>
+      </div>
+    </section>
+
+    <!-- Event teaser -->
+    <section class="sec" id="event">
+      <div class="wrap event-grid">
+        <div class="invite-tilt" data-reveal="scale">
+          <div class="invite-card" data-tilt><img src="/assets/img/invite-a.webp" alt="নিমন্ত্রণপত্র: কারিগর রত্ন সম্মাননা, প্রত্যাবর্তন ১" loading="lazy" width="900" height="600"></div>
+        </div>
+        <div>
+          <span class="kicker" data-reveal data-i18n="event.kicker"></span>
+          <h2 class="h2" data-split data-slot="event.name"></h2>
+          <p class="cd-label" data-reveal data-i18n="event.countdown"></p>
+          <div class="countdown" data-countdown data-reveal>
+            <div><b data-cd="d">–</b><span data-i18n="cd.d"></span></div>
+            <div><b data-cd="h">–</b><span data-i18n="cd.h"></span></div>
+            <div><b data-cd="m">–</b><span data-i18n="cd.m"></span></div>
+          </div>
+          <div class="info-list">
+            <div class="info" data-reveal><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#cal"/></svg></span><div><small data-i18n="event.date"></small><b data-slot="event.date"></b></div></div>
+            <div class="info" data-reveal><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#clock"/></svg></span><div><small data-i18n="event.time"></small><b data-slot="event.time"></b></div></div>
+            <div class="info" data-reveal><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#pin"/></svg></span><div><small data-i18n="event.venue"></small><b data-slot="event.venue"></b></div></div>
+          </div>
+          <a class="btn btn-gold" href="/event/" data-reveal><span data-i18n="event.more"></span><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec org" style="padding-top:8px">
+      <div class="wrap">
+        <span class="kicker" data-reveal data-i18n="org.title"></span>
+        <img src="/assets/img/organisers.webp" alt="KarmYog for the 21st Century এবং Bharatiya Krishak Samaj" loading="lazy" width="800" height="266" data-reveal>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="help">
+    <div class="wrap foot-grid">
+      <div>
+        <h2 class="h2" data-i18n="help.title"></h2>
+        <p data-i18n="help.body"></p>
+        <div class="tel-list" data-tels></div>
+      </div>
+      <div style="display:grid;gap:14px;align-content:start">
+        <p class="free-note"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#check"/></svg><span data-i18n="footer.free"></span></p>
+        <p data-i18n="footer.privacy"></p>
+        <p class="small" data-i18n="footer.credit"></p>
+        <p class="small">BKS Pujo · KarmYog for the 21st Century · Bharatiya Krishak Samaj</p>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="sticky-cta" aria-label="নাম লেখান">
+    <a class="btn btn-primary" href="/register/?mode=voice"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg><span data-i18n="cta.sticky">নাম লেখান</span></a>
+    <a class="btn btn-ghost btn-sm" href="#help" data-help aria-label="সাহায্য"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#help"/></svg></a>
+  </nav>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/data.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="/js/landing.js" defer></script>
+</body>
+</html>

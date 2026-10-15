@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="bn" data-lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>অনুষ্ঠানের তথ্য · কারিগর রত্ন সম্মাননা</title>
+  <meta name="description" content="তারিখ, সময়, স্থান, কী আনবেন, পরিবারের পাস, হেল্পলাইন আর সম্মিলনীর গান।">
+  <meta name="theme-color" content="#9E1B1F">
+  <meta property="og:title" content="কারিগর রত্ন সম্মাননা · অনুষ্ঠানের তথ্য">
+  <meta property="og:image" content="/assets/img/og-invite.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Galada&family=Tiro+Bangla&family=Tiro+Devanagari+Hindi&display=swap">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <header class="topbar is-solid">
+    <a class="brand" href="/" aria-label="BKS Pujo">
+      <svg class="brand-mark" aria-hidden="true"><use href="/assets/icons.svg#mark"/></svg>
+      <span class="brand-name" data-slot="event.name">কারিগর রত্ন সম্মাননা</span>
+    </a>
+    <span class="spacer"></span>
+    <div class="lang-switch" data-lang-switch></div>
+    <a class="help-btn" href="#helpline" data-help><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#help"/></svg><span data-i18n="nav.help">সাহায্য চাই</span></a>
+  </header>
+
+  <main>
+    <section class="page-hero" data-hero>
+      <div class="wrap">
+        <span class="kicker" data-reveal data-i18n="ev.kicker"></span>
+        <h1 class="h2" style="font-size:clamp(2.4rem,9vw,4.4rem);color:var(--sindoor)" data-split data-slot="event.name"></h1>
+        <p class="series" data-reveal data-slot="event.series"></p>
+        <div class="banner" data-reveal="scale"><img src="/assets/img/banner-ratna.webp" alt="সাদর আমন্ত্রণ, কারিগর রত্ন — নিমন্ত্রণের ব্যানার" width="900" height="375"></div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:24px">
+      <div class="wrap event-grid">
+        <div>
+          <div class="info-list" data-stagger>
+            <div class="info"><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#cal"/></svg></span><div><small data-i18n="event.date"></small><b data-slot="event.date"></b></div></div>
+            <div class="info"><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#clock"/></svg></span><div><small data-i18n="event.time"></small><b data-slot="event.time"></b></div></div>
+            <div class="info"><span class="ico-wrap"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#pin"/></svg></span><div><small data-i18n="event.venue"></small><b data-slot="event.venue"></b></div></div>
+          </div>
+          <div class="cta-row" style="max-width:none;justify-content:flex-start" data-reveal>
+            <a class="btn btn-primary" data-map target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#map"/></svg><span data-i18n="ev.map"></span></a>
+            <button class="btn btn-ghost" type="button" data-ics><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#cal"/></svg><span data-i18n="ev.cal"></span></button>
+          </div>
+        </div>
+        <div>
+          <p class="cd-label" data-reveal data-i18n="event.countdown"></p>
+          <div class="countdown" data-countdown data-reveal>
+            <div><b data-cd="d">–</b><span data-i18n="cd.d"></span></div>
+            <div><b data-cd="h">–</b><span data-i18n="cd.h"></span></div>
+            <div><b data-cd="m">–</b><span data-i18n="cd.m"></span></div>
+          </div>
+          <div class="invite-card" data-reveal="scale"><img src="/assets/img/protyabortan-1.webp" alt="এবার পুজোয় প্রত্যাবর্তন ১ — নিমন্ত্রণের নকশা" width="1280" height="548" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:0">
+      <div class="wrap cards" data-stagger>
+        <div class="card-box"><h3><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#map"/></svg><span data-i18n="ev.reach"></span></h3><p data-i18n="ev.reachBody"></p></div>
+        <div class="card-box"><h3><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#bag"/></svg><span data-i18n="ev.bring"></span></h3><ul><li data-i18n="ev.bring1"></li><li data-i18n="ev.bring2"></li><li data-i18n="ev.bring3"></li></ul></div>
+        <div class="card-box"><h3><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#users"/></svg><span data-i18n="ev.family"></span></h3><p data-i18n="ev.familyBody"></p></div>
+        <div class="card-box" id="helpline"><h3><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#phone"/></svg><span data-i18n="ev.helpline"></span></h3><p data-i18n="ev.helpBody"></p><div class="tel-list" data-tels></div></div>
+      </div>
+    </section>
+
+    <section class="sec dedi" id="anthem">
+      <div class="wrap why-grid">
+        <div>
+          <span class="kicker" data-reveal data-i18n="ev.watch"></span>
+          <h2 class="h2" data-split data-i18n="anthem.title"></h2>
+          <p class="lead" data-reveal data-i18n="ev.anthemBody"></p>
+          <p data-reveal style="margin:22px 0 0">
+            <button class="btn btn-gold" type="button" data-media="anthem"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#music"/></svg><span data-i18n="anthem.play"></span></button>
+          </p>
+          <div data-reveal="scale" style="margin-top:28px">
+            <button class="facade film" type="button" data-media="film">
+              <img src="/assets/img/film-thumb.webp" alt="" loading="lazy" width="960" height="540">
+              <span class="shade"></span>
+              <span class="play"><svg aria-hidden="true"><use href="/assets/icons.svg#play"/></svg></span>
+              <span class="cap"><b data-i18n="film.title"></b><small><span data-i18n="film.credit"></span> · YouTube</small></span>
+            </button>
+          </div>
+        </div>
+        <div data-reveal="scale">
+          <button class="facade reel" type="button" data-media="reel">
+            <span class="reel-poster"><img src="/assets/img/conch.webp" alt="" loading="lazy" style="object-fit:cover;width:100%;height:100%"></span>
+            <span class="shade"></span>
+            <span class="play"><svg aria-hidden="true"><use href="/assets/icons.svg#play"/></svg></span>
+            <span class="cap"><b data-i18n="why.reel"></b><small>Instagram · @dharmsansthapan</small></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="center">
+          <span class="kicker" data-reveal data-i18n="ev.letter"></span>
+          <h2 class="h2" data-split data-i18n="hero.welcome"></h2>
+          <p class="lead" data-reveal data-i18n="ev.letterBody"></p>
+        </div>
+        <div class="gallery" style="margin-top:28px" data-stagger>
+          <button type="button" data-zoom="/assets/img/invite-a.webp"><img src="/assets/img/invite-a.webp" alt="নিমন্ত্রণ নকশা ক: কারিগর রত্ন সম্মাননা" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/invite-b.webp"><img src="/assets/img/invite-b.webp" alt="নিমন্ত্রণ নকশা খ: নিমন্ত্রণের চিঠি" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/banner-ratna.webp"><img src="/assets/img/banner-ratna.webp" alt="নিমন্ত্রণ নকশা গ: কারিগর রত্ন" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/banner-protyabortan.webp"><img src="/assets/img/banner-protyabortan.webp" alt="নিমন্ত্রণ নকশা ঘ: এবার পুজোয় প্রত্যাবর্তন ১" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/invite-letter.webp"><img src="/assets/img/invite-letter.webp" alt="প্রত্যাবর্তন ভাবনার চিঠি" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/dedication.webp"><img src="/assets/img/dedication.webp" alt="উৎসর্গ-পাতা" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/protyabortan-1.webp"><img src="/assets/img/protyabortan-1.webp" alt="প্রত্যাবর্তন ১" loading="lazy"></button>
+          <button type="button" data-zoom="/assets/img/illus-tying.webp"><img src="/assets/img/illus-tying.webp" alt="বাঁশ বাঁধছেন দুই কারিগর — অলংকরণ" loading="lazy"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec center" style="padding-top:8px">
+      <div class="wrap" style="display:grid;justify-items:center;gap:14px">
+        <h2 class="h2" data-split data-i18n="ev.notReg"></h2>
+        <a class="btn btn-primary btn-xl pulse" href="/register/?mode=voice" data-reveal><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg><span data-i18n="cta.voice"></span></a>
+        <a class="btn btn-ghost btn-sm" href="/register/?mode=crew" data-reveal><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#users"/></svg><span data-i18n="cta.crew"></span></a>
+        <img src="/assets/img/organisers.webp" alt="KarmYog for the 21st Century এবং Bharatiya Krishak Samaj" loading="lazy" width="800" height="266" style="width:min(520px,100%);mix-blend-mode:multiply;margin-top:24px" data-reveal>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot-grid">
+      <div><p class="free-note"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#check"/></svg><span data-i18n="footer.free"></span></p></div>
+      <div><p data-i18n="footer.privacy"></p><p class="small" data-i18n="footer.credit"></p></div>
+    </div>
+  </footer>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/data.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+  (function (BKS) {
+    "use strict";
+    var D = BKS.data, ev = BKS.config.event;
+    var $ = function (s) { return document.querySelector(s); };
+    function lang() { return BKS.i18n.lang; }
+    function paint() {
+      $("[data-map]").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(ev.mapQuery);
+      $("[data-tels]").innerHTML = BKS.config.helpline.map(function (h) {
+        return '<a class="tel" style="background:var(--deep)" href="tel:' + h.tel + '">' + BKS.ui.icon("phone") + "<span>" + D.localDigits(h.display, lang() === "bn" ? "bn" : "en") + "</span></a>";
+      }).join("");
+      var target = new Date(ev.isoDate).getTime(), ms = Math.max(0, target - Date.now());
+      $("[data-cd=d]").textContent = D.localDigits(String(Math.floor(ms / 864e5)), lang());
+      $("[data-cd=h]").textContent = D.localDigits(String(Math.floor(ms / 36e5) % 24), lang());
+      $("[data-cd=m]").textContent = D.localDigits(String(Math.floor(ms / 6e4) % 60), lang());
+    }
+    paint();
+    setInterval(paint, 30000);
+    document.addEventListener("bks:lang", paint);
+
+    // Add to calendar: a plain .ics so it works on any phone.
+    $("[data-ics]").addEventListener("click", function () {
+      var start = new Date(ev.isoDate), end = new Date(start.getTime() + 3 * 36e5);
+      var f = function (d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); };
+      var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BKS Pujo//Kaarigar Sammelan//BN", "BEGIN:VEVENT",
+        "UID:kaarigar-sammelan-2026@bks-pujo", "DTSTAMP:" + f(new Date()), "DTSTART:" + f(start), "DTEND:" + f(end),
+        "SUMMARY:" + BKS.i18n.pick(ev.name), "LOCATION:" + BKS.i18n.pick(ev.venue), "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+      a.download = "kaarigar-sammelan.ics";
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+
+    document.addEventListener("click", function (e) {
+      var z = e.target.closest("[data-zoom]");
+      if (!z) return;
+      BKS.ui.openSheet('<img src="' + z.dataset.zoom + '" alt="" style="width:100%;border-radius:12px;margin-top:40px">', { wide: true });
+    });
+  })(window.BKS);
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+</body>
+</html>
