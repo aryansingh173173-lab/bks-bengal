@@ -93,8 +93,8 @@
     var ctx = cv.getContext("2d");
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, list = [], running = false, raf = 0;
-    // Soft petals over the coral hero: white, marigold and a little sky cyan.
-    var colors = [["#FFFFFF", "#FFE9E9"], ["#FFD89A", "#FFB84D"], ["#FFFFFF", "#E6FAFF"], ["#8BEAFF", "#5CE1FF"]];
+    // Soft petals over the cherry hero: white, pale cherry and cotton cloud.
+    var colors = [["#FFFFFF", "#FFE4EF"], ["#FFC2DA", "#FF8FBB"], ["#FFFFFF", "#EAF8FF"], ["#B8E9FF", "#94DEFF"]];
     function size() {
       var r = cv.getBoundingClientRect();
       W = r.width; H = r.height;
@@ -258,28 +258,8 @@
     gsap.to(".hero-sun svg", { rotate: 60, ease: "none", scrollTrigger: heroST });
     gsap.to(".hero-copy", { y: -40, opacity: .35, ease: "none", scrollTrigger: heroST });
 
-    // Split headings: words rise in.
-    $$("[data-split]").forEach(function (h) {
-      splitWords(h);
-      gsap.from(h.querySelectorAll(".w"), {
-        yPercent: 40, opacity: 0, duration: .6, stagger: .03, ease: ease,
-        scrollTrigger: { trigger: h, start: "top 92%", once: true }
-      });
-    });
-
-    // Generic reveals.
-    $$("[data-reveal]").forEach(function (el) {
-      var kind = el.dataset.reveal;
-      var from = kind === "scale" ? { scale: .96, opacity: 0, y: 20 } : kind === "rise" ? { y: 40, opacity: 0 } : { y: 18, opacity: 0 };
-      gsap.from(el, Object.assign(from, { duration: .7, ease: ease, scrollTrigger: { trigger: el, start: "top 92%", once: true } }));
-    });
-
-    // Trade cards fade up in small batches as they scroll in.
-    gsap.set(".trade", { opacity: 0, y: 24 });
-    ScrollTrigger.batch(".trade", {
-      start: "top 95%", once: true,
-      onEnter: function (batch) { gsap.to(batch, { opacity: 1, y: 0, duration: .6, stagger: .06, ease: ease, overwrite: true }); }
-    });
+    // No scroll-in reveals: everything below the hero is visible from the first paint.
+    // Hiding content until a scroll animation fires left blank screens on slow phones.
 
     // Counters.
     $$("[data-count]").forEach(function (el) {
@@ -312,7 +292,7 @@
       return function () { story.classList.remove("is-pinned"); gsap.set(track, { clearProps: "x" }); };
     });
     mm.add("(max-width: 959px)", function () {
-      gsap.from(".shot", { x: 80, opacity: 0, stagger: .08, duration: .8, ease: ease, scrollTrigger: { trigger: "[data-track]", start: "top 85%", once: true } });
+      // Phones swipe the story natively; nothing to animate.
     });
 
     // Invitation card: tilts toward the pointer, settles on leave.
@@ -357,7 +337,6 @@
   document.addEventListener("bks:lang", function () {
     renderAll();
     $$("[data-split], [data-title]").forEach(function (h) { delete h.dataset.splitDone; splitWords(h); });
-    if (hasGsap) gsap.set(".trade", { opacity: 1, y: 0 });
     var box = $("[data-demo]");
     if (box && box.getBoundingClientRect().top < window.innerHeight) demo();
     if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh();

@@ -6,7 +6,7 @@ An animated, voice-first invitation and registration site for every kaarigar who
 
 ## Look
 
-The palette is **Coral Fire `#FF4D4D`** and **Sky Cyan `#5CE1FF`**, with deep navy `#0E1A2B` as the ink, on a warm paper ground (`#FFF8F1`). Shapes are soft: rounded cards, hairline borders and soft shadows, with no hard outlines, offset shadows or tilted boxes. Headings are set in Noto Serif Bengali (Noto Serif Devanagari for Hindi) with generous line height so vowel signs never clip. Body text is Hind Siliguri. For contrast, white text only goes on coral at large, bold sizes, and text on cyan is always navy.
+The palette is **Glossy Cherry `#FF277F`** and **Cotton Cloud `#94DEFF`**, with deep navy `#0E1A2B` as the ink, on a Cotton Cloud blue ground (`#B8E9FF`, with full `#94DEFF` for alternate sections). White is kept for the cards that sit on it. Pink text uses the darker `#D10F62` on white and `#A8084D` on blue, so both stay readable. Shapes are soft: rounded cards, hairline borders and soft shadows, with no hard outlines, offset shadows or tilted boxes. Headings are set in Noto Serif Bengali (Noto Serif Devanagari for Hindi) with generous line height so vowel signs never clip. Body text is Hind Siliguri. For contrast, white text only goes on cherry at large, bold sizes, and text on cotton cloud is always navy.
 
 Bangla is written first and as people in Kolkata speak it. It is not translated from the English. When copy changes, write the Bangla first in `js/i18n.js`.
 
