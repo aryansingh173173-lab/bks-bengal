@@ -93,8 +93,8 @@
     var ctx = cv.getContext("2d");
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, list = [], running = false, raf = 0;
-    // Soft petals over the cherry hero: white, pale cherry and cotton cloud.
-    var colors = [["#FFFFFF", "#FFE4EF"], ["#FFC2DA", "#FF8FBB"], ["#FFFFFF", "#EAF8FF"], ["#B8E9FF", "#94DEFF"]];
+    // Soft petals over the cherry hero: white, pale cherry and gold.
+    var colors = [["#FFFFFF", "#FFE4EF"], ["#FFC2DA", "#FF8FBB"], ["#FFFFFF", "#FFF1D6"], ["#F6CA6A", "#F3A62C"]];
     function size() {
       var r = cv.getBoundingClientRect();
       W = r.width; H = r.height;

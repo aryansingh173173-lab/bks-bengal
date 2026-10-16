@@ -1,10 +1,10 @@
 /* The invitation card (brief, section 10): 1080 × 1350 portrait, made for WhatsApp.
    Drawn in the browser so it works offline after registration.
-   Look: cherry poster top with the artwork as stickers, name in big condensed navy. */
+   Look: cherry poster top with the artwork as stickers, name in big brown type. */
 (function (BKS) {
   "use strict";
   var W = 1080, H = 1350;
-  var C = { cherry: "#FF277F", cherryDeep: "#D10F62", cloud: "#94DEFF", cloudTint: "#EAF8FF", ink: "#0E1A2B", ink2: "#33415A", ink3: "#5D6B82", paper: "#FFFFFF" };
+  var C = { cherry: "#FF277F", cherryDeep: "#D10F62", gold: "#F3A62C", goldTint: "#FFF1D6", ink: "#3A1A0C", ink2: "#5E3A22", ink3: "#5D6B82", paper: "#FFFFFF" };
   var cache = {};
 
   function img(src) {
@@ -74,7 +74,7 @@
     ctx.restore();
   }
 
-  // Text with a hard navy offset shadow, poster style.
+  // Text with a hard brown offset shadow, poster style.
   function shadowText(ctx, text, x, y, fill, off) {
     ctx.fillStyle = C.ink;
     ctx.fillText(text, x + off, y + off);
@@ -89,7 +89,7 @@
     ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
   }
 
-  // A sticker: hard shadow, cloud backing, image clipped to the shape, navy outline.
+  // A sticker: hard shadow, gold backing, image clipped to the shape, brown outline.
   function sticker(ctx, shape, image, rot, fx, fy) {
     var b = shape.bounds;
     ctx.save();
@@ -97,7 +97,7 @@
     ctx.rotate(rot);
     ctx.translate(-(b.x + b.w / 2), -(b.y + b.h / 2));
     ctx.save(); ctx.translate(10, 10); shape.path(ctx); ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
-    shape.path(ctx); ctx.fillStyle = C.cloud; ctx.fill();
+    shape.path(ctx); ctx.fillStyle = C.gold; ctx.fill();
     ctx.save(); shape.path(ctx); ctx.clip();
     if (image) cover(ctx, image, b.x, b.y, b.w, b.h, fx, fy);
     ctx.restore();
@@ -185,7 +185,7 @@
     ctx.lineWidth = 4; ctx.strokeStyle = C.ink; ctx.stroke();
     ctx.fillStyle = C.ink; ctx.fillText(wl, W / 2, 104);
 
-    // Event name: big condensed white with a navy offset
+    // Event name: big condensed white with a brown offset
     var evName = up(pick(ev.name));
     var es = fit(ctx, evName, 940, 140, FAM, 800, true, 84);
     if (ctx.measureText(evName).width > 940) {
@@ -202,7 +202,7 @@
     // Artwork stickers: the conch-blower in an arch, Maa Durga in a circle
     sticker(ctx, arch(64, 318, 252, 290), art[0], -0.07, .4, .2);
     sticker(ctx, circle(W - 222, 462, 150), art[1], 0.05, .5, .15);
-    sparkle(ctx, 352, 330, 26, C.cloud);
+    sparkle(ctx, 352, 330, 26, C.gold);
     sparkle(ctx, W - 92, 300, 20, C.paper);
     sparkle(ctx, 300, 600, 16, C.paper);
 
@@ -224,7 +224,7 @@
         ctx.translate(W / 2 - 14, ty);
         ctx.rotate(rot);
         ctx.fillStyle = C.ink; roundRect(ctx, -tw / 2 + 5, -30 + 5, tw, 58, 10); ctx.fill();
-        ctx.fillStyle = i === 1 ? C.paper : C.cloud; roundRect(ctx, -tw / 2, -30, tw, 58, 10); ctx.fill();
+        ctx.fillStyle = i === 1 ? C.paper : C.gold; roundRect(ctx, -tw / 2, -30, tw, 58, 10); ctx.fill();
         ctx.lineWidth = 4; ctx.strokeStyle = C.ink; ctx.stroke();
         ctx.fillStyle = C.ink; ctx.fillText(tg, 0, 12);
         ctx.restore();
@@ -236,7 +236,7 @@
     var hon = t("card.honoured"), hw = ctx.measureText(hon).width;
     ctx.fillStyle = C.cherryDeep;
     ctx.fillText(hon, W / 2, 712);
-    ctx.fillStyle = C.cloud; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+    ctx.fillStyle = C.gold; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
     [[-1, 1], [1, 1]].forEach(function (s) {
       var bx = W / 2 + s[0] * (hw / 2 + 24) - (s[0] < 0 ? 70 : 0);
       roundRect(ctx, bx, 696, 70, 12, 6); ctx.fill(); ctx.stroke();
@@ -268,7 +268,7 @@
       var fw = ctx.measureText(famTxt).width + 48;
       y += 22;
       ctx.fillStyle = C.ink; roundRect(ctx, W / 2 - fw / 2 + 4, y + 4, fw, 50, 25); ctx.fill();
-      ctx.fillStyle = C.cloud; roundRect(ctx, W / 2 - fw / 2, y, fw, 50, 25); ctx.fill();
+      ctx.fillStyle = C.gold; roundRect(ctx, W / 2 - fw / 2, y, fw, 50, 25); ctx.fill();
       ctx.lineWidth = 3; ctx.strokeStyle = C.ink; ctx.stroke();
       ctx.fillStyle = C.ink; ctx.fillText(famTxt, W / 2, y + 35);
     }
@@ -281,12 +281,12 @@
     ctx.fillStyle = C.paper;
     ctx.fillText(pick(ev.date) + "  ·  " + pick(ev.time), W / 2, ey + 50);
     fit(ctx, pick(ev.venue), 900, 32, FAM, 600, false);
-    ctx.fillStyle = C.cloud;
+    ctx.fillStyle = C.gold;
     ctx.fillText(pick(ev.venue), W / 2, ey + 94);
 
     // Entry pass + organisers
     var by = 1198;
-    ctx.fillStyle = C.cloudTint;
+    ctx.fillStyle = C.goldTint;
     roundRect(ctx, 56, by, W - 112, 120, 18); ctx.fill();
     ctx.lineWidth = 3; ctx.strokeStyle = C.ink; ctx.stroke();
     drawQR(ctx, "BKS:" + (data.regNo || ""), 68, by + 8, 104);
@@ -370,7 +370,7 @@
     ctx.scale(dpr, dpr);
     var r = (host || document.body).getBoundingClientRect();
     var ox = r.left + r.width / 2, oy = r.top + Math.min(r.height / 2, h / 2);
-    var cols = [C.cherry, C.cloud, C.paper, C.ink, "#FFB3B3", "#B8E9FF"];
+    var cols = [C.cherry, C.gold, C.paper, C.ink, "#FFB3B3", "#F6CA6A"];
     var ps = [];
     for (var i = 0; i < 130; i += 1) {
       var a = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 9;

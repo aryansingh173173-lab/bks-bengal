@@ -6,7 +6,7 @@ An animated, voice-first invitation and registration site for every kaarigar who
 
 ## Look
 
-The palette is **Glossy Cherry `#FF277F`** and **Cotton Cloud `#94DEFF`**, with deep navy `#0E1A2B` as the ink, on a Cotton Cloud blue ground (`#B8E9FF`, with full `#94DEFF` for alternate sections). White is kept for the cards that sit on it. Pink text uses the darker `#D10F62` on white and `#A8084D` on blue, so both stay readable. Shapes are soft: rounded cards, hairline borders and soft shadows, with no hard outlines, offset shadows or tilted boxes. Headings are set in Noto Serif Bengali (Noto Serif Devanagari for Hindi) with generous line height so vowel signs never clip. Body text is Hind Siliguri. For contrast, white text only goes on cherry at large, bold sizes, and text on cotton cloud is always navy.
+The palette is **Glossy Cherry `#FF277F`** with the gold of the dedication artwork: saffron `#F3A62C`, light gold `#F6CA6A` and parchment `#FBE6B8`. The ink is a deep brown `#3A1A0C`, as in the artwork's shadows. Pages sit on parchment, with light gold for alternate sections, and white is kept for the cards that sit on them. Pink text uses the darker `#D10F62` on white and `#8F063F` on gold, so both stay readable. Shapes are soft: rounded cards, hairline borders and soft shadows, with no hard outlines, offset shadows or tilted boxes. Headings are set in Noto Serif Bengali (Noto Serif Devanagari for Hindi) with generous line height so vowel signs never clip. Body text is Hind Siliguri. For contrast, white text only goes on cherry at large, bold sizes, and text on gold is always brown.
 
 Bangla is written first and as people in Kolkata speak it. It is not translated from the English. When copy changes, write the Bangla first in `js/i18n.js`.
 

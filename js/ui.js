@@ -5,7 +5,7 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function icon(id, cls) {
-    return '<svg class="' + (cls || "ico") + '" aria-hidden="true"><use href="/assets/icons.svg?v=2#' + id + '"/></svg>';
+    return '<svg class="' + (cls || "ico") + '" aria-hidden="true"><use href="/assets/icons.svg?v=3#' + id + '"/></svg>';
   }
 
   function esc(s) {
