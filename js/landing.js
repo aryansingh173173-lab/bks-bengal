@@ -15,9 +15,13 @@
     var box = $("[data-trades]");
     if (!box) return;
     var i = BKS.i18n.idx();
+    var esc = BKS.ui.esc;
+    // Photo of the job, its name, one line on what the job is, and the name in the other language.
     box.innerHTML = D.TRADES.map(function (tr) {
       var other = i === 0 ? tr.label[1] : tr.label[0];
-      return '<a class="trade" href="/register/?mode=voice&amp;trade=' + tr.id + '"><span class="ico-wrap">' + D.icon(tr.id) + "</span><b>" + BKS.ui.esc(tr.label[i]) + "</b><small>" + BKS.ui.esc(other) + "</small></a>";
+      return '<a class="trade" href="/register/?mode=voice&amp;trade=' + tr.id + '">' +
+        '<span class="ph">' + D.photo(tr.id) + '<span class="go">' + BKS.ui.icon("arrow") + "</span></span>" +
+        '<span class="body"><b>' + esc(tr.label[i]) + "</b><p>" + esc(tr.desc[i]) + "</p><small>" + esc(other) + "</small></span></a>";
     }).join("");
   }
 
@@ -89,8 +93,8 @@
     var ctx = cv.getContext("2d");
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, list = [], running = false, raf = 0;
-    // Festival confetti in the palette: sky cyan, white and navy over the coral hero.
-    var colors = [["#5CE1FF", "#2CC9F0"], ["#FFFFFF", "#E6FAFF"], ["#8BEAFF", "#5CE1FF"], ["#0E1A2B", "#33415A"]];
+    // Soft petals over the coral hero: white, marigold and a little sky cyan.
+    var colors = [["#FFFFFF", "#FFE9E9"], ["#FFD89A", "#FFB84D"], ["#FFFFFF", "#E6FAFF"], ["#8BEAFF", "#5CE1FF"]];
     function size() {
       var r = cv.getBoundingClientRect();
       W = r.width; H = r.height;
@@ -241,7 +245,7 @@
       .from("[data-art=durga]", { xPercent: 25, scale: 1.08, opacity: 0, duration: 1.2 }, .15)
       .from(".welcome", { y: 16, opacity: 0, duration: .6 }, .2)
       .fromTo(".flourish path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1, ease: "power2.inOut" }, .3)
-      .from(title.querySelectorAll(".w"), { yPercent: 70, opacity: 0, rotateX: -70, transformOrigin: "50% 100%", duration: .9, stagger: .12 }, .3)
+      .from(title.querySelectorAll(".w"), { yPercent: 40, opacity: 0, duration: .8, stagger: .1 }, .25)
       .from("[data-hero-in]:not(.welcome)", { y: 18, opacity: 0, duration: .6, stagger: .07 }, .55)
       .from(".scroll-cue", { opacity: 0, duration: .6 }, 1.4);
     // Never leave the invitation hidden if frames are starved (old phone, background tab).
@@ -258,23 +262,23 @@
     $$("[data-split]").forEach(function (h) {
       splitWords(h);
       gsap.from(h.querySelectorAll(".w"), {
-        yPercent: 60, opacity: 0, duration: .8, stagger: .05, ease: ease,
-        scrollTrigger: { trigger: h, start: "top 85%", once: true }
+        yPercent: 40, opacity: 0, duration: .6, stagger: .03, ease: ease,
+        scrollTrigger: { trigger: h, start: "top 92%", once: true }
       });
     });
 
     // Generic reveals.
     $$("[data-reveal]").forEach(function (el) {
       var kind = el.dataset.reveal;
-      var from = kind === "scale" ? { scale: .9, opacity: 0, y: 30 } : kind === "rise" ? { y: 90, opacity: 0, clipPath: "inset(20% 0 0 0 round 28px)" } : { y: 28, opacity: 0 };
-      gsap.from(el, Object.assign(from, { duration: 1, ease: ease, scrollTrigger: { trigger: el, start: "top 88%", once: true } }));
+      var from = kind === "scale" ? { scale: .96, opacity: 0, y: 20 } : kind === "rise" ? { y: 40, opacity: 0 } : { y: 18, opacity: 0 };
+      gsap.from(el, Object.assign(from, { duration: .7, ease: ease, scrollTrigger: { trigger: el, start: "top 92%", once: true } }));
     });
 
-    // Trade cards cascade in like chips.
-    gsap.set(".trade", { opacity: 0, y: 40, rotateX: -20, transformPerspective: 600 });
+    // Trade cards fade up in small batches as they scroll in.
+    gsap.set(".trade", { opacity: 0, y: 24 });
     ScrollTrigger.batch(".trade", {
-      start: "top 92%", once: true,
-      onEnter: function (batch) { gsap.to(batch, { opacity: 1, y: 0, rotateX: 0, duration: .7, stagger: .07, ease: "back.out(1.4)", overwrite: true }); }
+      start: "top 95%", once: true,
+      onEnter: function (batch) { gsap.to(batch, { opacity: 1, y: 0, duration: .6, stagger: .06, ease: ease, overwrite: true }); }
     });
 
     // Counters.
@@ -334,6 +338,8 @@
     });
 
     window.addEventListener("load", function () { ScrollTrigger.refresh(); });
+    // The serif heading font can land after "load" and makes the page taller; re-measure then.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }
 
   function renderAll() {
@@ -351,7 +357,7 @@
   document.addEventListener("bks:lang", function () {
     renderAll();
     $$("[data-split], [data-title]").forEach(function (h) { delete h.dataset.splitDone; splitWords(h); });
-    if (hasGsap) gsap.set(".trade", { opacity: 1, y: 0, rotateX: 0 });
+    if (hasGsap) gsap.set(".trade", { opacity: 1, y: 0 });
     var box = $("[data-demo]");
     if (box && box.getBoundingClientRect().top < window.innerHeight) demo();
     if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh();

@@ -20,17 +20,17 @@
 
   function fonts(lang) {
     if (!document.fonts || !document.fonts.load) return Promise.resolve();
-    var fam = lang === "hi" ? '"Anek Devanagari"' : '"Anek Bangla"';
+    var fam = lang === "hi" ? '"Noto Serif Devanagari"' : '"Noto Serif Bengali"';
     var sample = lang === "hi" ? "कारीगर" : lang === "en" ? "Kaarigar" : "কারিগর";
     return Promise.all([
       document.fonts.load("800 80px " + fam, sample),
-      document.fonts.load("condensed 800 80px " + fam, sample),
       document.fonts.load("600 40px " + fam, sample),
       document.fonts.load('600 40px "Hind Siliguri"', sample)
     ]).catch(function () {});
   }
 
-  function family(lang) { return lang === "hi" ? '"Anek Devanagari", "Anek Bangla", sans-serif' : '"Anek Bangla", "Hind Siliguri", sans-serif'; }
+  // Same printed-Bangla serif as the site headings; fit() shrinks long names to the line.
+  function family(lang) { return lang === "hi" ? '"Noto Serif Devanagari", "Noto Serif Bengali", serif' : '"Noto Serif Bengali", "Hind Siliguri", serif'; }
 
   function setFont(ctx, weight, size, fam, condensed) {
     ctx.font = weight + " " + size + "px " + fam;

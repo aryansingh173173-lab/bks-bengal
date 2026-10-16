@@ -6,7 +6,13 @@ An animated, voice-first invitation and registration site for every kaarigar who
 
 ## Look
 
-The palette is **Coral Fire `#FF4D4D`** and **Sky Cyan `#5CE1FF`**, with deep navy `#0E1A2B` as the ink. Sections are colour-blocked like a festival poster, and the display type is condensed Anek Bangla (Anek Devanagari for Hindi). For contrast, white text only goes on coral at large, bold sizes, and text on cyan is always navy.
+The palette is **Coral Fire `#FF4D4D`** and **Sky Cyan `#5CE1FF`**, with deep navy `#0E1A2B` as the ink, on a warm paper ground (`#FFF8F1`). Shapes are soft: rounded cards, hairline borders and soft shadows, with no hard outlines, offset shadows or tilted boxes. Headings are set in Noto Serif Bengali (Noto Serif Devanagari for Hindi) with generous line height so vowel signs never clip. Body text is Hind Siliguri. For contrast, white text only goes on coral at large, bold sizes, and text on cyan is always navy.
+
+Bangla is written first and as people in Kolkata speak it. It is not translated from the English. When copy changes, write the Bangla first in `js/i18n.js`.
+
+### Trade photos
+
+Each of the 16 trades has a photo in `assets/trades/<id>.webp` (the ids are in `js/data.js`). The landing page cards and the job picker in the registration flow both use it. The current files were cropped from the organisers' "The Hands Behind Durga Puja" reference sheet, so they are small (about 320 px wide). To use sharper originals, replace a file with the same name at roughly 800 × 600 px.
 
 ## What's here
 

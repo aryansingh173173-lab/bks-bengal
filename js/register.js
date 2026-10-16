@@ -411,7 +411,7 @@
       enter: function () {
         shell("trade");
         var grid = '<div class="trade-grid">' + D.TRADES.map(function (tr, i) {
-          return '<button type="button" class="trade-chip" style="--i:' + i + '" data-trade="' + tr.id + '" aria-pressed="' + (S.a.trades.indexOf(tr.id) >= 0) + '">' + D.icon(tr.id) + "<span>" + esc(tr.label[li()]) + "</span></button>";
+          return '<button type="button" class="trade-chip" style="--i:' + i + '" data-trade="' + tr.id + '" aria-pressed="' + (S.a.trades.indexOf(tr.id) >= 0) + '">' + D.photo(tr.id, "thumb") + "<span>" + esc(tr.label[li()]) + "</span></button>";
         }).join("") + "</div>";
         answer(grid + '<button type="button" class="btn btn-primary" data-act="done"' + (S.a.trades.length ? "" : " disabled") + ">" + icon("check") + "<span>" + esc(t("c.done")) + "</span></button>");
         var a = $("[data-answer]", screen);
@@ -882,7 +882,7 @@
     }
     function tradeGrid(sel) {
       return '<div class="trade-grid">' + D.TRADES.map(function (tr, i) {
-        return '<button type="button" class="trade-chip" style="--i:' + i + '" data-trade="' + tr.id + '" aria-pressed="' + (sel.indexOf(tr.id) >= 0) + '">' + D.icon(tr.id) + "<span>" + esc(tr.label[li()]) + "</span></button>";
+        return '<button type="button" class="trade-chip" style="--i:' + i + '" data-trade="' + tr.id + '" aria-pressed="' + (sel.indexOf(tr.id) >= 0) + '">' + D.photo(tr.id, "thumb") + "<span>" + esc(tr.label[li()]) + "</span></button>";
       }).join("") + "</div>";
     }
     function dictate(btn, input, isNumber) {
